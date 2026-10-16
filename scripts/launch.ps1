@@ -1,6 +1,6 @@
 # Starts the game and reinstalls the mods first if a game update removed them.
 # Set as the game's launch options in Steam (Properties > General > Launch options), with your game path:
-#   powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "D:\...\Scam With Your Friends\BetterSpeech\launch.ps1" %command%
+#   "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "D:\...\Scam With Your Friends\BetterSpeech\launch.ps1" %command%
 # Runs install.ps1 of every mod folder next to this one that was installed before (has backup\state.txt),
 # so one launch option covers Better Speech Recognition and Gemini Backend. An already patched game takes
 # a second or two. A failed install shows a message; the game then starts without that mod.

@@ -23,10 +23,10 @@ After a game update, run `install.bat` again. The game's own files are replaced 
 A game update replaces the patched game files. To have the mods put back before every start, set the game's launch options in Steam (right-click the game → Properties → General → Launch options) to:
 
 ```
-powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "D:\Spiele\Steam\steamapps\common\Scam With Your Friends\BetterSpeech\launch.ps1" %command%
+"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "D:\Spiele\Steam\steamapps\common\Scam With Your Friends\BetterSpeech\launch.ps1" %command%
 ```
 
-Use your own game folder in the path. `launch.ps1` runs `install.ps1` of every mod in the game folder that you installed before (Better Speech Recognition and Gemini Backend alike, so one launch option covers both), then starts the game. When nothing changed this adds a second or two. If a mod cannot be installed, for example because the update changed the code it hooks, a message says so and the game starts without it. The log is in `BetterSpeech\launch.log`.
+Use your own game folder in the path. Steam needs the full path to `powershell.exe`; with just `powershell.exe` it reports that the game's executable is missing. `launch.ps1` runs `install.ps1` of every mod in the game folder that you installed before (Better Speech Recognition and Gemini Backend alike, so one launch option covers both), then starts the game. When nothing changed this adds a second or two. If a mod cannot be installed, for example because the update changed the code it hooks, a message says so and the game starts without it. The log is in `BetterSpeech\launch.log`.
 
 **Uninstall:** run `BetterSpeech\uninstall.bat` with the game closed. It restores the original game files. `uninstall.ps1 -Purge` also deletes the downloaded models and the settings. If anything goes wrong: Steam → Properties → Installed Files → Verify integrity of game files.
 
