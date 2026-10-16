@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.6.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <!-- Override with: dotnet build -p:GameDir="X:\path\to\Scam With Your Friends" -->
+    <GameDir Condition="'$(GameDir)' == ''">D:\Spiele\Steam\steamapps\common\Scam With Your Friends</GameDir>
+    <ManagedDir>$(GameDir)\Scam With Your Friends_Data\Managed</ManagedDir>
+  </PropertyGroup>
+</Project>

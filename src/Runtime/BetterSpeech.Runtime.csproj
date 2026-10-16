@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Loaded by the game itself. The game ships linker-stripped core libraries, so this project compiles
+    against exactly those (NoStdLib + the game's own mscorlib/System/System.Core). Any API the game
+    does not have is a compile error here instead of a MissingMethodException in game.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>BetterSpeech.Runtime</AssemblyName>
+    <RootNamespace>BetterSpeech</RootNamespace>
+    <NoStdLib>true</NoStdLib>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <!-- The stripped TargetFrameworkAttribute has no FrameworkDisplayName setter -->
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(ManagedDir)\mscorlib.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\System.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\System.Core.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\com.whisper.unity.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.UnityWebRequestModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\Kolkata.Speech.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\Unity.InputSystem.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\UnityEngine.AudioModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)\MetaVoiceChat.Core.dll" Private="false" />
+    <!-- PlayerVoiceSingleton, WhisperVcPipeline, ReviewCaptureClock: read only, for the menu -->
+    <Reference Include="$(ManagedDir)\ScriptsAssDef.dll" Private="false" />
+  </ItemGroup>
+
+</Project>

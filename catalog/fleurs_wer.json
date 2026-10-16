@@ -1,0 +1,658 @@
+{
+ "Afrikaans": {
+  "tiny": 91.2,
+  "base": 81.5,
+  "small": 61.1,
+  "medium": 44.9,
+  "large": 42.6,
+  "large-v2": 36.7
+ },
+ "Amharic": {
+  "tiny": 122.9,
+  "base": 196.8,
+  "small": 120.2,
+  "medium": 229.3,
+  "large": 129.3,
+  "large-v2": 140.3
+ },
+ "Arabic": {
+  "tiny": 63.4,
+  "base": 48.8,
+  "small": 30.6,
+  "medium": 20.4,
+  "large": 18.1,
+  "large-v2": 16.0
+ },
+ "Assamese": {
+  "tiny": 102.0,
+  "base": 102.0,
+  "small": 108.0,
+  "medium": 102.3,
+  "large": 105.6,
+  "large-v2": 106.2
+ },
+ "Azerbaijani": {
+  "tiny": 93.1,
+  "base": 76.4,
+  "small": 49.1,
+  "medium": 33.1,
+  "large": 28.7,
+  "large-v2": 23.4
+ },
+ "Belarusian": {
+  "tiny": 94.0,
+  "base": 91.3,
+  "small": 75.1,
+  "medium": 60.4,
+  "large": 56.6,
+  "large-v2": 45.4
+ },
+ "Bulgarian": {
+  "tiny": 81.0,
+  "base": 65.1,
+  "small": 37.3,
+  "medium": 21.4,
+  "large": 18.4,
+  "large-v2": 14.6
+ },
+ "Bengali": {
+  "tiny": 101.6,
+  "base": 100.6,
+  "small": 104.4,
+  "medium": 100.6,
+  "large": 104.9,
+  "large-v2": 104.1
+ },
+ "Bosnian": {
+  "tiny": 82.1,
+  "base": 66.7,
+  "small": 39.4,
+  "medium": 23.9,
+  "large": 20.7,
+  "large-v2": 15.7
+ },
+ "Catalan": {
+  "tiny": 42.8,
+  "base": 29.0,
+  "small": 16.2,
+  "medium": 9.6,
+  "large": 8.0,
+  "large-v2": 7.3
+ },
+ "Chinese": {
+  "tiny": 40.5,
+  "base": 34.1,
+  "small": 20.8,
+  "medium": 12.1,
+  "large": 19.6,
+  "large-v2": 14.7
+ },
+ "Czech": {
+  "tiny": 82.8,
+  "base": 66.0,
+  "small": 37.6,
+  "medium": 21.3,
+  "large": 17.4,
+  "large-v2": 13.3
+ },
+ "Welsh": {
+  "tiny": 101.3,
+  "base": 85.3,
+  "small": 59.3,
+  "medium": 40.8,
+  "large": 36.6,
+  "large-v2": 33.0
+ },
+ "Danish": {
+  "tiny": 82.0,
+  "base": 57.6,
+  "small": 32.8,
+  "medium": 19.5,
+  "large": 16.8,
+  "large-v2": 13.8
+ },
+ "German": {
+  "tiny": 27.8,
+  "base": 17.9,
+  "small": 10.2,
+  "medium": 6.5,
+  "large": 5.5,
+  "large-v2": 4.5
+ },
+ "Greek": {
+  "tiny": 67.4,
+  "base": 53.5,
+  "small": 30.8,
+  "medium": 19.0,
+  "large": 18.7,
+  "large-v2": 12.5
+ },
+ "English": {
+  "tiny": 12.4,
+  "base": 8.9,
+  "small": 6.1,
+  "medium": 4.4,
+  "large": 4.5,
+  "large-v2": 4.2
+ },
+ "Spanish": {
+  "tiny": 15.9,
+  "base": 9.9,
+  "small": 5.6,
+  "medium": 3.6,
+  "large": 3.5,
+  "large-v2": 3.0
+ },
+ "Estonian": {
+  "tiny": 94.8,
+  "base": 77.9,
+  "small": 51.3,
+  "medium": 29.8,
+  "large": 25.5,
+  "large-v2": 21.9
+ },
+ "Persian": {
+  "tiny": 101.8,
+  "base": 86.1,
+  "small": 55.8,
+  "medium": 41.0,
+  "large": 36.1,
+  "large-v2": 32.9
+ },
+ "Finnish": {
+  "tiny": 59.5,
+  "base": 43.1,
+  "small": 24.0,
+  "medium": 13.9,
+  "large": 12.2,
+  "large-v2": 9.7
+ },
+ "Tagalog": {
+  "tiny": 65.6,
+  "base": 45.8,
+  "small": 27.7,
+  "medium": 19.1,
+  "large": 15.8,
+  "large-v2": 13.8
+ },
+ "French": {
+  "tiny": 41.4,
+  "base": 28.5,
+  "small": 15.0,
+  "medium": 8.7,
+  "large": 7.7,
+  "large-v2": 8.3
+ },
+ "Galician": {
+  "tiny": 54.8,
+  "base": 47.4,
+  "small": 30.2,
+  "medium": 21.2,
+  "large": 19.0,
+  "large-v2": 15.4
+ },
+ "Gujarati": {
+  "tiny": 101.2,
+  "base": 101.4,
+  "small": 106.4,
+  "medium": 104.8,
+  "large": 103.9,
+  "large-v2": 102.7
+ },
+ "Hausa": {
+  "tiny": 100.2,
+  "base": 98.6,
+  "small": 90.1,
+  "medium": 106.6,
+  "large": 87.0,
+  "large-v2": 88.9
+ },
+ "Hebrew": {
+  "tiny": 71.6,
+  "base": 61.7,
+  "small": 44.4,
+  "medium": 33.1,
+  "large": 30.2,
+  "large-v2": 27.1
+ },
+ "Hindi": {
+  "tiny": 102.3,
+  "base": 101.1,
+  "small": 38.4,
+  "medium": 26.8,
+  "large": 26.9,
+  "large-v2": 21.5
+ },
+ "Croatian": {
+  "tiny": 79.0,
+  "base": 59.1,
+  "small": 33.4,
+  "medium": 19.3,
+  "large": 16.7,
+  "large-v2": 13.4
+ },
+ "Hungarian": {
+  "tiny": 83.8,
+  "base": 65.0,
+  "small": 38.9,
+  "medium": 24.3,
+  "large": 21.0,
+  "large-v2": 17.0
+ },
+ "Armenian": {
+  "tiny": 118.6,
+  "base": 126.3,
+  "small": 86.6,
+  "medium": 60.1,
+  "large": 53.7,
+  "large-v2": 44.6
+ },
+ "Indonesian": {
+  "tiny": 51.7,
+  "base": 33.1,
+  "small": 16.3,
+  "medium": 10.2,
+  "large": 8.5,
+  "large-v2": 7.1
+ },
+ "Icelandic": {
+  "tiny": 113.3,
+  "base": 95.5,
+  "small": 72.6,
+  "medium": 49.9,
+  "large": 43.0,
+  "large-v2": 38.2
+ },
+ "Italian": {
+  "tiny": 29.8,
+  "base": 17.9,
+  "small": 9.8,
+  "medium": 5.2,
+  "large": 4.2,
+  "large-v2": 4.0
+ },
+ "Japanese": {
+  "tiny": 37.0,
+  "base": 22.8,
+  "small": 12.0,
+  "medium": 7.1,
+  "large": 6.4,
+  "large-v2": 5.3
+ },
+ "Javanese": {
+  "tiny": 107.3,
+  "base": 89.5,
+  "small": 88.6,
+  "medium": 67.9,
+  "large": 87.0,
+  "large-v2": null
+ },
+ "Georgian": {
+  "tiny": 123.0,
+  "base": 114.7,
+  "small": 118.3,
+  "medium": 117.3,
+  "large": 100.5,
+  "large-v2": 105.0
+ },
+ "Kazakh": {
+  "tiny": 165.2,
+  "base": 109.2,
+  "small": 70.3,
+  "medium": 48.8,
+  "large": 43.8,
+  "large-v2": 37.7
+ },
+ "Khmer": {
+  "tiny": 100.6,
+  "base": 101.6,
+  "small": 104.4,
+  "medium": 98.9,
+  "large": 96.0,
+  "large-v2": 99.7
+ },
+ "Kannada": {
+  "tiny": 100.7,
+  "base": 107.2,
+  "small": 100.4,
+  "medium": 77.7,
+  "large": 69.8,
+  "large-v2": 37.0
+ },
+ "Korean": {
+  "tiny": 36.1,
+  "base": 27.8,
+  "small": 19.6,
+  "medium": 16.4,
+  "large": 15.2,
+  "large-v2": 14.3
+ },
+ "Luxembourgish": {
+  "tiny": 99.1,
+  "base": 100.7,
+  "small": 100.1,
+  "medium": 90.0,
+  "large": 86.5,
+  "large-v2": 88.0
+ },
+ "Lingala": {
+  "tiny": 105.4,
+  "base": 96.7,
+  "small": 91.3,
+  "medium": 83.2,
+  "large": 76.8,
+  "large-v2": 75.6
+ },
+ "Lao": {
+  "tiny": 115.1,
+  "base": 105.1,
+  "small": 102.2,
+  "medium": 101.4,
+  "large": 101.6,
+  "large-v2": 101.5
+ },
+ "Lithuanian": {
+  "tiny": 98.5,
+  "base": 87.3,
+  "small": 65.6,
+  "medium": 41.1,
+  "large": 35.2,
+  "large-v2": 28.1
+ },
+ "Latvian": {
+  "tiny": 91.6,
+  "base": 79.8,
+  "small": 53.2,
+  "medium": 32.0,
+  "large": 28.3,
+  "large-v2": 23.1
+ },
+ "Maori": {
+  "tiny": 94.5,
+  "base": 77.5,
+  "small": 59.5,
+  "medium": 77.8,
+  "large": 45.7,
+  "large-v2": 38.5
+ },
+ "Macedonian": {
+  "tiny": 73.3,
+  "base": 59.9,
+  "small": 36.9,
+  "medium": 22.0,
+  "large": 20.6,
+  "large-v2": 16.5
+ },
+ "Malayalam": {
+  "tiny": 101.5,
+  "base": 107.4,
+  "small": 100.9,
+  "medium": 101.1,
+  "large": 101.4,
+  "large-v2": 100.7
+ },
+ "Mongolian": {
+  "tiny": 113.7,
+  "base": 125.7,
+  "small": 144.2,
+  "medium": 103.7,
+  "large": 106.2,
+  "large-v2": 110.5
+ },
+ "Marathi": {
+  "tiny": 100.3,
+  "base": 100.3,
+  "small": 60.2,
+  "medium": 63.2,
+  "large": 43.7,
+  "large-v2": 38.3
+ },
+ "Malay": {
+  "tiny": 51.2,
+  "base": 35.1,
+  "small": 18.9,
+  "medium": 12.2,
+  "large": 10.2,
+  "large-v2": 8.7
+ },
+ "Maltese": {
+  "tiny": 100.8,
+  "base": 97.6,
+  "small": 92.2,
+  "medium": 83.2,
+  "large": 80.5,
+  "large-v2": 76.6
+ },
+ "Myanmar": {
+  "tiny": 124.8,
+  "base": 122.6,
+  "small": 110.1,
+  "medium": 123.0,
+  "large": 124.5,
+  "large-v2": 115.7
+ },
+ "Norwegian": {
+  "tiny": 62.0,
+  "base": 44.0,
+  "small": 24.2,
+  "medium": 12.9,
+  "large": 11.4,
+  "large-v2": 9.5
+ },
+ "Nepali": {
+  "tiny": 101.8,
+  "base": 102.4,
+  "small": 69.5,
+  "medium": 54.4,
+  "large": 52.2,
+  "large-v2": 47.1
+ },
+ "Dutch": {
+  "tiny": 49.0,
+  "base": 33.0,
+  "small": 16.4,
+  "medium": 9.9,
+  "large": 8.3,
+  "large-v2": 6.7
+ },
+ "Occitan": {
+  "tiny": 95.9,
+  "base": 82.9,
+  "small": 87.3,
+  "medium": 79.5,
+  "large": 75.9,
+  "large-v2": 75.3
+ },
+ "Punjabi": {
+  "tiny": 102.6,
+  "base": 101.5,
+  "small": 103.6,
+  "medium": 102.0,
+  "large": 102.8,
+  "large-v2": 102.4
+ },
+ "Polish": {
+  "tiny": 45.6,
+  "base": 30.8,
+  "small": 14.7,
+  "medium": 8.0,
+  "large": 7.2,
+  "large-v2": 5.4
+ },
+ "Pashto": {
+  "tiny": 105.6,
+  "base": 99.0,
+  "small": 92.9,
+  "medium": 119.4,
+  "large": 92.7,
+  "large-v2": 93.7
+ },
+ "Portuguese": {
+  "tiny": 20.1,
+  "base": 13.0,
+  "small": 7.3,
+  "medium": 5.0,
+  "large": 4.8,
+  "large-v2": 4.3
+ },
+ "Romanian": {
+  "tiny": 74.7,
+  "base": 56.0,
+  "small": 29.8,
+  "medium": 20.0,
+  "large": 15.4,
+  "large-v2": 14.4
+ },
+ "Russian": {
+  "tiny": 31.1,
+  "base": 20.5,
+  "small": 11.4,
+  "medium": 7.2,
+  "large": 6.4,
+  "large-v2": 5.6
+ },
+ "Sindhi": {
+  "tiny": 105.8,
+  "base": 103.9,
+  "small": 131.7,
+  "medium": 147.0,
+  "large": 177.9,
+  "large-v2": 156.5
+ },
+ "Slovak": {
+  "tiny": 77.2,
+  "base": 60.6,
+  "small": 33.3,
+  "medium": 17.3,
+  "large": 15.7,
+  "large-v2": 11.7
+ },
+ "Slovenian": {
+  "tiny": 87.2,
+  "base": 74.6,
+  "small": 49.3,
+  "medium": 31.9,
+  "large": 27.8,
+  "large-v2": 23.1
+ },
+ "Shona": {
+  "tiny": 128.1,
+  "base": 126.0,
+  "small": 140.0,
+  "medium": 143.9,
+  "large": 130.0,
+  "large-v2": 121.0
+ },
+ "Somali": {
+  "tiny": 105.6,
+  "base": 109.6,
+  "small": 105.3,
+  "medium": 104.0,
+  "large": 103.5,
+  "large-v2": 102.9
+ },
+ "Serbian": {
+  "tiny": 83.7,
+  "base": 64.3,
+  "small": 42.2,
+  "medium": 44.9,
+  "large": 29.2,
+  "large-v2": 33.9
+ },
+ "Swedish": {
+  "tiny": 52.7,
+  "base": 37.4,
+  "small": 20.8,
+  "medium": 11.2,
+  "large": 10.5,
+  "large-v2": 8.5
+ },
+ "Swahili": {
+  "tiny": 100.9,
+  "base": 92.5,
+  "small": 73.7,
+  "medium": 52.8,
+  "large": 47.9,
+  "large-v2": 39.3
+ },
+ "Tamil": {
+  "tiny": 99.9,
+  "base": 58.7,
+  "small": 35.2,
+  "medium": 23.1,
+  "large": 20.6,
+  "large-v2": 17.5
+ },
+ "Telugu": {
+  "tiny": 105.1,
+  "base": 105.2,
+  "small": 98.2,
+  "medium": 82.8,
+  "large": 100.6,
+  "large-v2": 99.0
+ },
+ "Tajik": {
+  "tiny": 101.7,
+  "base": 109.3,
+  "small": 84.3,
+  "medium": 74.0,
+  "large": 74.5,
+  "large-v2": 85.8
+ },
+ "Thai": {
+  "tiny": 58.8,
+  "base": 38.2,
+  "small": 21.9,
+  "medium": 15.4,
+  "large": 13.2,
+  "large-v2": 11.5
+ },
+ "Turkish": {
+  "tiny": 42.5,
+  "base": 27.5,
+  "small": 15.9,
+  "medium": 10.4,
+  "large": 9.4,
+  "large-v2": 8.4
+ },
+ "Ukrainian": {
+  "tiny": 51.2,
+  "base": 37.7,
+  "small": 19.3,
+  "medium": 11.6,
+  "large": 10.3,
+  "large-v2": 8.6
+ },
+ "Urdu": {
+  "tiny": 65.2,
+  "base": 52.0,
+  "small": 37.3,
+  "medium": 28.2,
+  "large": 25.0,
+  "large-v2": 22.6
+ },
+ "Uzbek": {
+  "tiny": 105.2,
+  "base": 114.0,
+  "small": 107.7,
+  "medium": 109.6,
+  "large": 93.3,
+  "large-v2": 90.2
+ },
+ "Vietnamese": {
+  "tiny": 60.0,
+  "base": 40.5,
+  "small": 21.2,
+  "medium": 12.7,
+  "large": 10.7,
+  "large-v2": 10.3
+ },
+ "Yoruba": {
+  "tiny": 106.4,
+  "base": 101.8,
+  "small": 116.4,
+  "medium": 105.1,
+  "large": 111.7,
+  "large-v2": 94.8
+ }
+}

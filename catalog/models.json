@@ -1,0 +1,2939 @@
+{
+ "schemaVersion": 1,
+ "generated": "2026-10-16",
+ "notes": [
+  "err = error rate in percent (WER, or CER where metric says so). Lower is better.",
+  "Quantized variants (q5/q8) share the quality of their family; whisper.cpp reports the loss as small, it is not measured here.",
+  "estMemoryMB and relativeCompute are estimates; the in-game self-test replaces them with measured values."
+ ],
+ "sources": {
+  "paper": "Radford et al. 2022, Robust Speech Recognition via Large-Scale Weak Supervision, Table 13 (FLEURS WER), https://arxiv.org/abs/2212.04356",
+  "vocova-scaled": "vocova.app FLEURS benchmark (50 utterances per language; large-v3, turbo and small with one protocol), https://vocova.app/blog/ai-transcription-accuracy-benchmark-2026 ; ratio to small, applied to the paper value of small",
+  "estimate": "No per-language measurement found. large-v3 = large-v2 x 0.85 (OpenAI: 10-20% fewer errors than v2), turbo = large-v2 (OpenAI: turbo similar to large-v2)",
+  "belle-scaled": "BELLE-2 model card: CER of Belle-whisper-large-v3-turbo-zh vs openai turbo on AISHELL-1, AISHELL-2, WenetSpeech net and meeting, HKUST; mean ratio applied to the turbo value, https://huggingface.co/BELLE-2/Belle-whisper-large-v3-turbo-zh",
+  "bofenghuang-scaled": "bofenghuang model card: short-form WER of whisper-large-v3-french-distil-dec16 vs openai large-v3, mean of the in-domain and the call-center (Zaion) averages; applied to the large-v3 value, https://huggingface.co/bofenghuang/whisper-large-v3-french-distil-dec16",
+  "kblab-scaled": "KBLab model card: FLEURS WER of kb-whisper vs openai (large-v3 5.4 vs 7.8, medium 6.6 vs 12.1); applied to the large-v3 / medium values, https://huggingface.co/KBLab/kb-whisper-large",
+  "primeline-scaled": "primeline model card: same German test mix, turbo 3.649 vs turbo-german 2.628 WER (-28%), https://huggingface.co/primeline/whisper-large-v3-turbo-german ; applied to the turbo value",
+  "memory": "whisper.cpp README memory table, https://github.com/ggml-org/whisper.cpp#memory-usage",
+  "files": "Hugging Face API file listings (size, LFS sha256)"
+ },
+ "ratingThresholds": {
+  "5": 5,
+  "4": 8,
+  "3": 12,
+  "2": 20,
+  "1": 40
+ },
+ "models": [
+  {
+   "id": "tiny",
+   "family": "tiny",
+   "quantization": "f16",
+   "file": "ggml-tiny.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 77691713,
+   "sha256": "be07e048e1e599ad46341c8d2a135645097a538221678b7acdd1b1919c6e1b21",
+   "paramsM": 39,
+   "estMemoryMB": 278,
+   "relativeCompute": 1,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "base",
+   "family": "base",
+   "quantization": "f16",
+   "file": "ggml-base.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 147951465,
+   "sha256": "60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe",
+   "paramsM": 74,
+   "estMemoryMB": 388,
+   "relativeCompute": 2,
+   "languages": "multilingual",
+   "license": "MIT",
+   "bundledWithGame": true
+  },
+  {
+   "id": "small-q5",
+   "family": "small",
+   "quantization": "q5_1",
+   "file": "ggml-small-q5_1.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 190085487,
+   "sha256": "ae85e4a935d7a567bd102fe55afc16bb595bdb618e11b2fc7591bc08120411bb",
+   "paramsM": 244,
+   "estMemoryMB": 560,
+   "relativeCompute": 6,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "small",
+   "family": "small",
+   "quantization": "f16",
+   "file": "ggml-small.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 487601967,
+   "sha256": "1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b",
+   "paramsM": 244,
+   "estMemoryMB": 858,
+   "relativeCompute": 6,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "medium-q5",
+   "family": "medium",
+   "quantization": "q5_0",
+   "file": "ggml-medium-q5_0.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium-q5_0.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 539212467,
+   "sha256": "19fea4b380c3a618ec4723c3eef2eb785ffba0d0538cf43f8f235e7b3b34220f",
+   "paramsM": 769,
+   "estMemoryMB": 1099,
+   "relativeCompute": 16,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "medium",
+   "family": "medium",
+   "quantization": "f16",
+   "file": "ggml-medium.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 1533763059,
+   "sha256": "6c14d5adee5f86394037b4e4e8b59f1673b6cee10e3cf0b11bbdbee79c156208",
+   "paramsM": 769,
+   "estMemoryMB": 2094,
+   "relativeCompute": 16,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "turbo-q5",
+   "family": "large-v3-turbo",
+   "quantization": "q5_0",
+   "file": "ggml-large-v3-turbo-q5_0.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 574041195,
+   "sha256": "394221709cd5ad1f40c46e6031ca61bce88931e6e088c188294c6d5a55ffa7e2",
+   "paramsM": 809,
+   "estMemoryMB": 1174,
+   "relativeCompute": 12,
+   "languages": "multilingual",
+   "license": "MIT",
+   "recommendedDefault": true
+  },
+  {
+   "id": "turbo-q8",
+   "family": "large-v3-turbo",
+   "quantization": "q8_0",
+   "file": "ggml-large-v3-turbo-q8_0.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q8_0.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 874188075,
+   "sha256": "317eb69c11673c9de1e1f0d459b253999804ec71ac4c23c17ecf5fbe24e259a1",
+   "paramsM": 809,
+   "estMemoryMB": 1474,
+   "relativeCompute": 12,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "turbo",
+   "family": "large-v3-turbo",
+   "quantization": "f16",
+   "file": "ggml-large-v3-turbo.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 1624555275,
+   "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69",
+   "paramsM": 809,
+   "estMemoryMB": 2225,
+   "relativeCompute": 12,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "large-v3-q5",
+   "family": "large-v3",
+   "quantization": "q5_0",
+   "file": "ggml-large-v3-q5_0.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-q5_0.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 1081140203,
+   "sha256": "d75795ecff3f83b5faa89d1900604ad8c780abd5739fae406de19f23ecd98ad1",
+   "paramsM": 1550,
+   "estMemoryMB": 1881,
+   "relativeCompute": 32,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "large-v3",
+   "family": "large-v3",
+   "quantization": "f16",
+   "file": "ggml-large-v3.bin",
+   "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin",
+   "repo": "ggerganov/whisper.cpp",
+   "sizeBytes": 3095033483,
+   "sha256": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2",
+   "paramsM": 1550,
+   "estMemoryMB": 3895,
+   "relativeCompute": 32,
+   "languages": "multilingual",
+   "license": "MIT"
+  },
+  {
+   "id": "turbo-german-q5",
+   "family": "large-v3-turbo-german",
+   "quantization": "q5_0",
+   "file": "ggml-model-q5_0.bin",
+   "url": "https://huggingface.co/cstr/whisper-large-v3-turbo-german-ggml/resolve/main/ggml-model-q5_0.bin",
+   "repo": "cstr/whisper-large-v3-turbo-german-ggml",
+   "sizeBytes": 574041195,
+   "sha256": "15e92e3db0993c52fffa781513eec9253475331c1be808f8fb409285c9d9d030",
+   "paramsM": 809,
+   "estMemoryMB": 1174,
+   "relativeCompute": 12,
+   "languages": [
+    "de"
+   ],
+   "license": "Apache-2.0",
+   "upstream": "primeline/whisper-large-v3-turbo-german"
+  },
+  {
+   "id": "turbo-german",
+   "family": "large-v3-turbo-german",
+   "quantization": "f16",
+   "file": "ggml-model.bin",
+   "url": "https://huggingface.co/cstr/whisper-large-v3-turbo-german-ggml/resolve/main/ggml-model.bin",
+   "repo": "cstr/whisper-large-v3-turbo-german-ggml",
+   "sizeBytes": 1624555275,
+   "sha256": "6eb2e025198a6cbac7bdb1e86e278f5de002e583aae7bdfcf5183ef8da16decd",
+   "paramsM": 809,
+   "estMemoryMB": 2225,
+   "relativeCompute": 12,
+   "languages": [
+    "de"
+   ],
+   "license": "Apache-2.0",
+   "upstream": "primeline/whisper-large-v3-turbo-german"
+  },
+  {
+   "id": "turbo-chinese",
+   "family": "belle-turbo-zh",
+   "quantization": "f16",
+   "file": "ggml-model.bin",
+   "url": "https://huggingface.co/BELLE-2/Belle-whisper-large-v3-turbo-zh-ggml/resolve/main/ggml-model.bin",
+   "repo": "BELLE-2/Belle-whisper-large-v3-turbo-zh-ggml",
+   "sizeBytes": 1624555275,
+   "sha256": "2a3bba5bfdb4d4da3d9949a83b405711727ca1941d4d5810895e077eb3cb4d99",
+   "paramsM": 809,
+   "estMemoryMB": 2225,
+   "relativeCompute": 12,
+   "languages": [
+    "zh"
+   ],
+   "license": "Apache-2.0",
+   "upstream": "BELLE-2/Belle-whisper-large-v3-turbo-zh"
+  },
+  {
+   "id": "french-distil-q5",
+   "family": "large-v3-french-distil",
+   "quantization": "q5_0",
+   "file": "ggml-model-q5_0.bin",
+   "url": "https://huggingface.co/bofenghuang/whisper-large-v3-french-distil-dec16/resolve/main/ggml-model-q5_0.bin",
+   "repo": "bofenghuang/whisper-large-v3-french-distil-dec16",
+   "sizeBytes": 791369259,
+   "sha256": "a804330f5cd369fb7447ad2935eb7bf5b1d628ba246a067255ac70775df720e4",
+   "paramsM": 1150,
+   "estMemoryMB": 1491,
+   "relativeCompute": 22,
+   "languages": [
+    "fr"
+   ],
+   "license": "MIT"
+  },
+  {
+   "id": "swedish-large-q5",
+   "family": "kb-large",
+   "quantization": "q5_0",
+   "file": "ggml-model-q5_0.bin",
+   "url": "https://huggingface.co/KBLab/kb-whisper-large/resolve/main/ggml-model-q5_0.bin",
+   "repo": "KBLab/kb-whisper-large",
+   "sizeBytes": 1081140203,
+   "sha256": "6d2863812d7410322bb7d8647a5c7260761300fa946714c9ed66d22bb30bcb19",
+   "paramsM": 1550,
+   "estMemoryMB": 1881,
+   "relativeCompute": 32,
+   "languages": [
+    "sv"
+   ],
+   "license": "Apache-2.0"
+  },
+  {
+   "id": "swedish-medium-q5",
+   "family": "kb-medium",
+   "quantization": "q5_0",
+   "file": "ggml-model-q5_0.bin",
+   "url": "https://huggingface.co/KBLab/kb-whisper-medium/resolve/main/ggml-model-q5_0.bin",
+   "repo": "KBLab/kb-whisper-medium",
+   "sizeBytes": 539212484,
+   "sha256": "7f8762e0ade9e0073674c0d5acae942a0b1ea98add9baa008ee89c94eaba43d0",
+   "paramsM": 769,
+   "estMemoryMB": 1099,
+   "relativeCompute": 16,
+   "languages": [
+    "sv"
+   ],
+   "license": "Apache-2.0"
+  }
+ ],
+ "quality": {
+  "af": {
+   "name": "Afrikaans",
+   "metric": "WER",
+   "tiny": {
+    "err": 91.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 81.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 61.1,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 44.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 36.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 31.2,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 36.7,
+    "src": "estimate"
+   }
+  },
+  "am": {
+   "name": "Amharic",
+   "metric": "WER",
+   "tiny": {
+    "err": 122.9,
+    "src": "paper"
+   },
+   "base": {
+    "err": 196.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 120.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 229.3,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 140.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 119.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 140.3,
+    "src": "estimate"
+   }
+  },
+  "ar": {
+   "name": "Arabic",
+   "metric": "WER",
+   "tiny": {
+    "err": 63.4,
+    "src": "paper"
+   },
+   "base": {
+    "err": 48.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 30.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 20.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 16.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 13.7,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 15.1,
+    "src": "vocova-scaled"
+   }
+  },
+  "as": {
+   "name": "Assamese",
+   "metric": "WER",
+   "tiny": {
+    "err": 102.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 102.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 108.0,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 102.3,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 106.2,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 90.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 106.2,
+    "src": "estimate"
+   }
+  },
+  "az": {
+   "name": "Azerbaijani",
+   "metric": "WER",
+   "tiny": {
+    "err": 93.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 76.4,
+    "src": "paper"
+   },
+   "small": {
+    "err": 49.1,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 33.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 23.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 19.9,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 23.4,
+    "src": "estimate"
+   }
+  },
+  "be": {
+   "name": "Belarusian",
+   "metric": "WER",
+   "tiny": {
+    "err": 94.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 91.3,
+    "src": "paper"
+   },
+   "small": {
+    "err": 75.1,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 60.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 45.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 38.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 45.4,
+    "src": "estimate"
+   }
+  },
+  "bg": {
+   "name": "Bulgarian",
+   "metric": "WER",
+   "tiny": {
+    "err": 81.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 65.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 37.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 21.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 14.6,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 12.4,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 14.6,
+    "src": "estimate"
+   }
+  },
+  "bn": {
+   "name": "Bengali",
+   "metric": "WER",
+   "tiny": {
+    "err": 101.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 100.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 104.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 100.6,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 104.1,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 88.5,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 104.1,
+    "src": "estimate"
+   }
+  },
+  "bs": {
+   "name": "Bosnian",
+   "metric": "WER",
+   "tiny": {
+    "err": 82.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 66.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 39.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 23.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 15.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 13.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 15.7,
+    "src": "estimate"
+   }
+  },
+  "ca": {
+   "name": "Catalan",
+   "metric": "WER",
+   "tiny": {
+    "err": 42.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 29.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 16.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 9.6,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 7.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 6.2,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 7.3,
+    "src": "estimate"
+   }
+  },
+  "zh": {
+   "name": "Chinese",
+   "metric": "CER",
+   "tiny": {
+    "err": 40.5,
+    "src": "paper"
+   },
+   "base": {
+    "err": 34.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 20.8,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 12.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 14.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 7.1,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 8.5,
+    "src": "vocova-scaled"
+   },
+   "belle-turbo-zh": {
+    "err": 5.0,
+    "src": "belle-scaled"
+   }
+  },
+  "cs": {
+   "name": "Czech",
+   "metric": "WER",
+   "tiny": {
+    "err": 82.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 66.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 37.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 21.3,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 13.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 11.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 13.3,
+    "src": "estimate"
+   }
+  },
+  "cy": {
+   "name": "Welsh",
+   "metric": "WER",
+   "tiny": {
+    "err": 101.3,
+    "src": "paper"
+   },
+   "base": {
+    "err": 85.3,
+    "src": "paper"
+   },
+   "small": {
+    "err": 59.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 40.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 33.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 28.1,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 33.0,
+    "src": "estimate"
+   }
+  },
+  "da": {
+   "name": "Danish",
+   "metric": "WER",
+   "tiny": {
+    "err": 82.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 57.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 32.8,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 19.5,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 13.8,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 11.7,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 13.8,
+    "src": "estimate"
+   }
+  },
+  "de": {
+   "name": "German",
+   "metric": "WER",
+   "tiny": {
+    "err": 27.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 17.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 10.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 6.5,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 4.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 3.7,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 4.8,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo-german": {
+    "err": 3.5,
+    "src": "primeline-scaled"
+   }
+  },
+  "el": {
+   "name": "Greek",
+   "metric": "WER",
+   "tiny": {
+    "err": 67.4,
+    "src": "paper"
+   },
+   "base": {
+    "err": 53.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 30.8,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 19.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 12.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 10.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 12.5,
+    "src": "estimate"
+   }
+  },
+  "en": {
+   "name": "English",
+   "metric": "WER",
+   "tiny": {
+    "err": 12.4,
+    "src": "paper"
+   },
+   "base": {
+    "err": 8.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 6.1,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 4.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 4.2,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 3.8,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 4.3,
+    "src": "vocova-scaled"
+   }
+  },
+  "es": {
+   "name": "Spanish",
+   "metric": "WER",
+   "tiny": {
+    "err": 15.9,
+    "src": "paper"
+   },
+   "base": {
+    "err": 9.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 5.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 3.6,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 3.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 2.5,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 2.8,
+    "src": "vocova-scaled"
+   }
+  },
+  "et": {
+   "name": "Estonian",
+   "metric": "WER",
+   "tiny": {
+    "err": 94.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 77.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 51.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 29.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 21.9,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 18.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 21.9,
+    "src": "estimate"
+   }
+  },
+  "fa": {
+   "name": "Persian",
+   "metric": "WER",
+   "tiny": {
+    "err": 101.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 86.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 55.8,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 41.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 32.9,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 28.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 32.9,
+    "src": "estimate"
+   }
+  },
+  "fi": {
+   "name": "Finnish",
+   "metric": "WER",
+   "tiny": {
+    "err": 59.5,
+    "src": "paper"
+   },
+   "base": {
+    "err": 43.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 24.0,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 13.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 9.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 8.2,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 9.7,
+    "src": "estimate"
+   }
+  },
+  "tl": {
+   "name": "Tagalog",
+   "metric": "WER",
+   "tiny": {
+    "err": 65.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 45.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 27.7,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 19.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 13.8,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 11.7,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 13.8,
+    "src": "estimate"
+   }
+  },
+  "fr": {
+   "name": "French",
+   "metric": "WER",
+   "tiny": {
+    "err": 41.4,
+    "src": "paper"
+   },
+   "base": {
+    "err": 28.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 15.0,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 8.7,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 8.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 6.1,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 7.0,
+    "src": "vocova-scaled"
+   },
+   "large-v3-french-distil": {
+    "err": 4.9,
+    "src": "bofenghuang-scaled"
+   }
+  },
+  "gl": {
+   "name": "Galician",
+   "metric": "WER",
+   "tiny": {
+    "err": 54.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 47.4,
+    "src": "paper"
+   },
+   "small": {
+    "err": 30.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 21.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 15.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 13.1,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 15.4,
+    "src": "estimate"
+   }
+  },
+  "gu": {
+   "name": "Gujarati",
+   "metric": "WER",
+   "tiny": {
+    "err": 101.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 101.4,
+    "src": "paper"
+   },
+   "small": {
+    "err": 106.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 104.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 102.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 87.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 102.7,
+    "src": "estimate"
+   }
+  },
+  "ha": {
+   "name": "Hausa",
+   "metric": "WER",
+   "tiny": {
+    "err": 100.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 98.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 90.1,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 106.6,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 88.9,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 75.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 88.9,
+    "src": "estimate"
+   }
+  },
+  "he": {
+   "name": "Hebrew",
+   "metric": "WER",
+   "tiny": {
+    "err": 71.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 61.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 44.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 33.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 27.1,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 23.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 27.1,
+    "src": "estimate"
+   }
+  },
+  "hi": {
+   "name": "Hindi",
+   "metric": "WER",
+   "tiny": {
+    "err": 102.3,
+    "src": "paper"
+   },
+   "base": {
+    "err": 101.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 38.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 26.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 21.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 14.2,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 20.2,
+    "src": "vocova-scaled"
+   }
+  },
+  "hr": {
+   "name": "Croatian",
+   "metric": "WER",
+   "tiny": {
+    "err": 79.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 59.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 33.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 19.3,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 13.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 11.4,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 13.4,
+    "src": "estimate"
+   }
+  },
+  "hu": {
+   "name": "Hungarian",
+   "metric": "WER",
+   "tiny": {
+    "err": 83.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 65.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 38.9,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 24.3,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 17.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 14.4,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 17.0,
+    "src": "estimate"
+   }
+  },
+  "hy": {
+   "name": "Armenian",
+   "metric": "WER",
+   "tiny": {
+    "err": 118.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 126.3,
+    "src": "paper"
+   },
+   "small": {
+    "err": 86.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 60.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 44.6,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 37.9,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 44.6,
+    "src": "estimate"
+   }
+  },
+  "id": {
+   "name": "Indonesian",
+   "metric": "WER",
+   "tiny": {
+    "err": 51.7,
+    "src": "paper"
+   },
+   "base": {
+    "err": 33.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 16.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 10.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 7.1,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 6.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 7.1,
+    "src": "estimate"
+   }
+  },
+  "is": {
+   "name": "Icelandic",
+   "metric": "WER",
+   "tiny": {
+    "err": 113.3,
+    "src": "paper"
+   },
+   "base": {
+    "err": 95.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 72.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 49.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 38.2,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 32.5,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 38.2,
+    "src": "estimate"
+   }
+  },
+  "it": {
+   "name": "Italian",
+   "metric": "WER",
+   "tiny": {
+    "err": 29.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 17.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 9.8,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 5.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 4.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 3.8,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 4.7,
+    "src": "vocova-scaled"
+   }
+  },
+  "ja": {
+   "name": "Japanese",
+   "metric": "CER",
+   "tiny": {
+    "err": 37.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 22.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 12.0,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 7.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 5.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 4.8,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 4.2,
+    "src": "vocova-scaled"
+   }
+  },
+  "jw": {
+   "name": "Javanese",
+   "metric": "WER",
+   "tiny": {
+    "err": 107.3,
+    "src": "paper"
+   },
+   "base": {
+    "err": 89.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 88.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 67.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": null,
+    "src": "paper"
+   }
+  },
+  "ka": {
+   "name": "Georgian",
+   "metric": "WER",
+   "tiny": {
+    "err": 123.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 114.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 118.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 117.3,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 105.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 89.2,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 105.0,
+    "src": "estimate"
+   }
+  },
+  "kk": {
+   "name": "Kazakh",
+   "metric": "WER",
+   "tiny": {
+    "err": 165.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 109.2,
+    "src": "paper"
+   },
+   "small": {
+    "err": 70.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 48.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 37.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 32.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 37.7,
+    "src": "estimate"
+   }
+  },
+  "km": {
+   "name": "Khmer",
+   "metric": "CER",
+   "tiny": {
+    "err": 100.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 101.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 104.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 98.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 99.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 84.7,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 99.7,
+    "src": "estimate"
+   }
+  },
+  "kn": {
+   "name": "Kannada",
+   "metric": "WER",
+   "tiny": {
+    "err": 100.7,
+    "src": "paper"
+   },
+   "base": {
+    "err": 107.2,
+    "src": "paper"
+   },
+   "small": {
+    "err": 100.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 77.7,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 37.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 31.4,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 37.0,
+    "src": "estimate"
+   }
+  },
+  "ko": {
+   "name": "Korean",
+   "metric": "WER",
+   "tiny": {
+    "err": 36.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 27.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 19.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 16.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 14.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 13.5,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 13.1,
+    "src": "vocova-scaled"
+   }
+  },
+  "lb": {
+   "name": "Luxembourgish",
+   "metric": "WER",
+   "tiny": {
+    "err": 99.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 100.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 100.1,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 90.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 88.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 74.8,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 88.0,
+    "src": "estimate"
+   }
+  },
+  "ln": {
+   "name": "Lingala",
+   "metric": "WER",
+   "tiny": {
+    "err": 105.4,
+    "src": "paper"
+   },
+   "base": {
+    "err": 96.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 91.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 83.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 75.6,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 64.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 75.6,
+    "src": "estimate"
+   }
+  },
+  "lo": {
+   "name": "Lao",
+   "metric": "CER",
+   "tiny": {
+    "err": 115.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 105.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 102.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 101.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 101.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 86.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 101.5,
+    "src": "estimate"
+   }
+  },
+  "lt": {
+   "name": "Lithuanian",
+   "metric": "WER",
+   "tiny": {
+    "err": 98.5,
+    "src": "paper"
+   },
+   "base": {
+    "err": 87.3,
+    "src": "paper"
+   },
+   "small": {
+    "err": 65.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 41.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 28.1,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 23.9,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 28.1,
+    "src": "estimate"
+   }
+  },
+  "lv": {
+   "name": "Latvian",
+   "metric": "WER",
+   "tiny": {
+    "err": 91.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 79.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 53.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 32.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 23.1,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 19.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 23.1,
+    "src": "estimate"
+   }
+  },
+  "mi": {
+   "name": "Maori",
+   "metric": "WER",
+   "tiny": {
+    "err": 94.5,
+    "src": "paper"
+   },
+   "base": {
+    "err": 77.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 59.5,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 77.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 38.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 32.7,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 38.5,
+    "src": "estimate"
+   }
+  },
+  "mk": {
+   "name": "Macedonian",
+   "metric": "WER",
+   "tiny": {
+    "err": 73.3,
+    "src": "paper"
+   },
+   "base": {
+    "err": 59.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 36.9,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 22.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 16.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 14.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 16.5,
+    "src": "estimate"
+   }
+  },
+  "ml": {
+   "name": "Malayalam",
+   "metric": "WER",
+   "tiny": {
+    "err": 101.5,
+    "src": "paper"
+   },
+   "base": {
+    "err": 107.4,
+    "src": "paper"
+   },
+   "small": {
+    "err": 100.9,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 101.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 100.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 85.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 100.7,
+    "src": "estimate"
+   }
+  },
+  "mn": {
+   "name": "Mongolian",
+   "metric": "WER",
+   "tiny": {
+    "err": 113.7,
+    "src": "paper"
+   },
+   "base": {
+    "err": 125.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 144.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 103.7,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 110.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 93.9,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 110.5,
+    "src": "estimate"
+   }
+  },
+  "mr": {
+   "name": "Marathi",
+   "metric": "WER",
+   "tiny": {
+    "err": 100.3,
+    "src": "paper"
+   },
+   "base": {
+    "err": 100.3,
+    "src": "paper"
+   },
+   "small": {
+    "err": 60.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 63.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 38.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 32.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 38.3,
+    "src": "estimate"
+   }
+  },
+  "ms": {
+   "name": "Malay",
+   "metric": "WER",
+   "tiny": {
+    "err": 51.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 35.1,
+    "src": "paper"
+   },
+   "small": {
+    "err": 18.9,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 12.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 8.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 7.4,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 8.7,
+    "src": "estimate"
+   }
+  },
+  "mt": {
+   "name": "Maltese",
+   "metric": "WER",
+   "tiny": {
+    "err": 100.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 97.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 92.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 83.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 76.6,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 65.1,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 76.6,
+    "src": "estimate"
+   }
+  },
+  "my": {
+   "name": "Myanmar",
+   "metric": "CER",
+   "tiny": {
+    "err": 124.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 122.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 110.1,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 123.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 115.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 98.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 115.7,
+    "src": "estimate"
+   }
+  },
+  "no": {
+   "name": "Norwegian",
+   "metric": "WER",
+   "tiny": {
+    "err": 62.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 44.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 24.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 12.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 9.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 8.1,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 9.5,
+    "src": "estimate"
+   }
+  },
+  "ne": {
+   "name": "Nepali",
+   "metric": "WER",
+   "tiny": {
+    "err": 101.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 102.4,
+    "src": "paper"
+   },
+   "small": {
+    "err": 69.5,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 54.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 47.1,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 40.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 47.1,
+    "src": "estimate"
+   }
+  },
+  "nl": {
+   "name": "Dutch",
+   "metric": "WER",
+   "tiny": {
+    "err": 49.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 33.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 16.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 9.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 6.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 5.7,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 6.7,
+    "src": "estimate"
+   }
+  },
+  "oc": {
+   "name": "Occitan",
+   "metric": "WER",
+   "tiny": {
+    "err": 95.9,
+    "src": "paper"
+   },
+   "base": {
+    "err": 82.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 87.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 79.5,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 75.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 64.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 75.3,
+    "src": "estimate"
+   }
+  },
+  "pa": {
+   "name": "Punjabi",
+   "metric": "WER",
+   "tiny": {
+    "err": 102.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 101.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 103.6,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 102.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 102.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 87.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 102.4,
+    "src": "estimate"
+   }
+  },
+  "pl": {
+   "name": "Polish",
+   "metric": "WER",
+   "tiny": {
+    "err": 45.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 30.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 14.7,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 8.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 5.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 4.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 5.4,
+    "src": "estimate"
+   }
+  },
+  "ps": {
+   "name": "Pashto",
+   "metric": "WER",
+   "tiny": {
+    "err": 105.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 99.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 92.9,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 119.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 93.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 79.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 93.7,
+    "src": "estimate"
+   }
+  },
+  "pt": {
+   "name": "Portuguese",
+   "metric": "WER",
+   "tiny": {
+    "err": 20.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 13.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 7.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 5.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 4.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 4.4,
+    "src": "vocova-scaled"
+   },
+   "large-v3-turbo": {
+    "err": 4.8,
+    "src": "vocova-scaled"
+   }
+  },
+  "ro": {
+   "name": "Romanian",
+   "metric": "WER",
+   "tiny": {
+    "err": 74.7,
+    "src": "paper"
+   },
+   "base": {
+    "err": 56.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 29.8,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 20.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 14.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 12.2,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 14.4,
+    "src": "estimate"
+   }
+  },
+  "ru": {
+   "name": "Russian",
+   "metric": "WER",
+   "tiny": {
+    "err": 31.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 20.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 11.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 7.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 5.6,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 4.8,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 5.6,
+    "src": "estimate"
+   }
+  },
+  "sd": {
+   "name": "Sindhi",
+   "metric": "WER",
+   "tiny": {
+    "err": 105.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 103.9,
+    "src": "paper"
+   },
+   "small": {
+    "err": 131.7,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 147.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 156.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 133.0,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 156.5,
+    "src": "estimate"
+   }
+  },
+  "sk": {
+   "name": "Slovak",
+   "metric": "WER",
+   "tiny": {
+    "err": 77.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 60.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 33.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 17.3,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 11.7,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 9.9,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 11.7,
+    "src": "estimate"
+   }
+  },
+  "sl": {
+   "name": "Slovenian",
+   "metric": "WER",
+   "tiny": {
+    "err": 87.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 74.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 49.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 31.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 23.1,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 19.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 23.1,
+    "src": "estimate"
+   }
+  },
+  "sn": {
+   "name": "Shona",
+   "metric": "WER",
+   "tiny": {
+    "err": 128.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 126.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 140.0,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 143.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 121.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 102.8,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 121.0,
+    "src": "estimate"
+   }
+  },
+  "so": {
+   "name": "Somali",
+   "metric": "WER",
+   "tiny": {
+    "err": 105.6,
+    "src": "paper"
+   },
+   "base": {
+    "err": 109.6,
+    "src": "paper"
+   },
+   "small": {
+    "err": 105.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 104.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 102.9,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 87.5,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 102.9,
+    "src": "estimate"
+   }
+  },
+  "sr": {
+   "name": "Serbian",
+   "metric": "WER",
+   "tiny": {
+    "err": 83.7,
+    "src": "paper"
+   },
+   "base": {
+    "err": 64.3,
+    "src": "paper"
+   },
+   "small": {
+    "err": 42.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 44.9,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 33.9,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 28.8,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 33.9,
+    "src": "estimate"
+   }
+  },
+  "sv": {
+   "name": "Swedish",
+   "metric": "WER",
+   "tiny": {
+    "err": 52.7,
+    "src": "paper"
+   },
+   "base": {
+    "err": 37.4,
+    "src": "paper"
+   },
+   "small": {
+    "err": 20.8,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 11.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 8.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 7.2,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 8.5,
+    "src": "estimate"
+   },
+   "kb-large": {
+    "err": 5.0,
+    "src": "kblab-scaled"
+   },
+   "kb-medium": {
+    "err": 6.1,
+    "src": "kblab-scaled"
+   }
+  },
+  "sw": {
+   "name": "Swahili",
+   "metric": "WER",
+   "tiny": {
+    "err": 100.9,
+    "src": "paper"
+   },
+   "base": {
+    "err": 92.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 73.7,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 52.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 39.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 33.4,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 39.3,
+    "src": "estimate"
+   }
+  },
+  "ta": {
+   "name": "Tamil",
+   "metric": "WER",
+   "tiny": {
+    "err": 99.9,
+    "src": "paper"
+   },
+   "base": {
+    "err": 58.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 35.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 23.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 17.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 14.9,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 17.5,
+    "src": "estimate"
+   }
+  },
+  "te": {
+   "name": "Telugu",
+   "metric": "WER",
+   "tiny": {
+    "err": 105.1,
+    "src": "paper"
+   },
+   "base": {
+    "err": 105.2,
+    "src": "paper"
+   },
+   "small": {
+    "err": 98.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 82.8,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 99.0,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 84.1,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 99.0,
+    "src": "estimate"
+   }
+  },
+  "tg": {
+   "name": "Tajik",
+   "metric": "WER",
+   "tiny": {
+    "err": 101.7,
+    "src": "paper"
+   },
+   "base": {
+    "err": 109.3,
+    "src": "paper"
+   },
+   "small": {
+    "err": 84.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 74.0,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 85.8,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 72.9,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 85.8,
+    "src": "estimate"
+   }
+  },
+  "th": {
+   "name": "Thai",
+   "metric": "CER",
+   "tiny": {
+    "err": 58.8,
+    "src": "paper"
+   },
+   "base": {
+    "err": 38.2,
+    "src": "paper"
+   },
+   "small": {
+    "err": 21.9,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 15.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 11.5,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 9.8,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 11.5,
+    "src": "estimate"
+   }
+  },
+  "tr": {
+   "name": "Turkish",
+   "metric": "WER",
+   "tiny": {
+    "err": 42.5,
+    "src": "paper"
+   },
+   "base": {
+    "err": 27.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 15.9,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 10.4,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 8.4,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 7.1,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 8.4,
+    "src": "estimate"
+   }
+  },
+  "uk": {
+   "name": "Ukrainian",
+   "metric": "WER",
+   "tiny": {
+    "err": 51.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 37.7,
+    "src": "paper"
+   },
+   "small": {
+    "err": 19.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 11.6,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 8.6,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 7.3,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 8.6,
+    "src": "estimate"
+   }
+  },
+  "ur": {
+   "name": "Urdu",
+   "metric": "WER",
+   "tiny": {
+    "err": 65.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 52.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 37.3,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 28.2,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 22.6,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 19.2,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 22.6,
+    "src": "estimate"
+   }
+  },
+  "uz": {
+   "name": "Uzbek",
+   "metric": "WER",
+   "tiny": {
+    "err": 105.2,
+    "src": "paper"
+   },
+   "base": {
+    "err": 114.0,
+    "src": "paper"
+   },
+   "small": {
+    "err": 107.7,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 109.6,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 90.2,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 76.7,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 90.2,
+    "src": "estimate"
+   }
+  },
+  "vi": {
+   "name": "Vietnamese",
+   "metric": "WER",
+   "tiny": {
+    "err": 60.0,
+    "src": "paper"
+   },
+   "base": {
+    "err": 40.5,
+    "src": "paper"
+   },
+   "small": {
+    "err": 21.2,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 12.7,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 10.3,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 8.8,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 10.3,
+    "src": "estimate"
+   }
+  },
+  "yo": {
+   "name": "Yoruba",
+   "metric": "WER",
+   "tiny": {
+    "err": 106.4,
+    "src": "paper"
+   },
+   "base": {
+    "err": 101.8,
+    "src": "paper"
+   },
+   "small": {
+    "err": 116.4,
+    "src": "paper"
+   },
+   "medium": {
+    "err": 105.1,
+    "src": "paper"
+   },
+   "large-v2": {
+    "err": 94.8,
+    "src": "paper"
+   },
+   "large-v3": {
+    "err": 80.6,
+    "src": "estimate"
+   },
+   "large-v3-turbo": {
+    "err": 94.8,
+    "src": "estimate"
+   }
+  }
+ }
+}
