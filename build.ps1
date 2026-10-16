@@ -25,6 +25,7 @@ foreach ($dll in @("BetterSpeech.Patcher.dll", "Mono.Cecil.dll", "Mono.Cecil.Roc
 }
 Copy-Item (Join-Path $root "catalog\models.json") (Join-Path $out "catalog")
 Copy-Item (Join-Path $root "README.md") $out
+Copy-Item (Join-Path $root "LICENSE") (Join-Path $out "LICENSE.txt")
 Write-Host "== Package: $out"
 
 if ($Zip) {

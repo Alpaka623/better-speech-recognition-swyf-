@@ -1,70 +1,107 @@
-# Better Speech Recognition – Scam With Your Friends
+# Better Speech Recognition for Scam With Your Friends
 
-Ersetzt das kleine Whisper-Modell des Spiels (`ggml-base.bin`) durch ein größeres, steuert GPU-Einstellungen und gibt Whisper einen Start-Prompt pro Sprache. Optional werden erfundene Geräusch-Tags wie `*Klingel*` herausgefiltert.
+Scam With Your Friends turns what you say in calls into text with a small Whisper model (`ggml-base.bin`). It often gets words or whole sentences wrong, especially outside English. This mod lets you swap it for a larger or language-specific Whisper model, right in the game.
 
-## Warum kein BepInEx
+- **In-game menu (F8):** see every model for your language, rated for quality and speed and checked against your PC. Download, switch and delete models without leaving the game.
+- **Switching without a restart:** a new model loads right away, or after the current call if you are in one.
+- **Microphone test:** hold a button, say a sentence and see what the model heard and how long it took.
+- **Language-specific models** where they clearly beat the standard ones: German, Chinese, French and Swedish.
+- **Fewer made-up sentences:** Whisper sometimes invents phrases during silence ("Thanks for watching", "Vielen Dank."). The mod drops them when the model itself is unsure.
+- Runs on the graphics card, with a start prompt per language that helps with scam-call vocabulary.
 
-Das Spiel ist mit Managed Code Stripping gebaut: `mscorlib.dll` und Co. sind gekürzt, und Unity hat die Spiel-DLLs passend dazu mitgekürzt.
+## Install
 
-- BepInEx scheitert an der gekürzten `mscorlib` (`Module.GetPEKind` fehlt).
-- Ungekürzte Bibliotheken passen nicht mehr zu den gekürzten Spiel-DLLs (`TypeLoadException` in Mirror, UniTask und Newtonsoft; das Spiel hängt).
-- Harmony braucht `MethodBase.GetMethodBody`, das ebenfalls fehlt.
+1. Extract the `BetterSpeech` folder into the game folder, next to `Scam With Your Friends.exe`.
+   (Steam: right-click the game → Manage → Browse local files.)
+2. Close the game and run `BetterSpeech\install.bat`. Choose your language; the matching model is downloaded and checked.
+3. Start the game and press **F8** to open the menu.
 
-Deshalb patcht die Mod die Spiel-DLLs einmalig auf der Festplatte (mit Sicherung), statt sie zur Laufzeit zu verändern.
+After a game update, run `install.bat` again. The game's own files are replaced by the update, so the mod is gone until you do.
 
-## Aufbau
+**Uninstall:** run `BetterSpeech\uninstall.bat` with the game closed. It restores the original game files. `uninstall.ps1 -Purge` also deletes the downloaded models and the settings. If anything goes wrong: Steam → Properties → Installed Files → Verify integrity of game files.
 
-| Teil | Wo | Was |
-|---|---|---|
-| `BetterSpeech.Runtime.dll` | `src/Runtime` → `Managed\` | Mod-Logik (`Hooks`, `ModConfig`). Kompiliert gegen die **gekürzten** Bibliotheken des Spiels (`NoStdLib`), damit nur vorhandene APIs genutzt werden. |
-| `BetterSpeech.Patcher.dll` | `src/Patcher` | Mono.Cecil-Patcher. Läuft in Windows PowerShell 5.1, keine `.exe`. |
-| `install.bat` / `uninstall.bat` | `scripts/` | Starten die `.ps1`-Skripte. |
-| `catalog/models.json` | | Modell-Liste (Größe, SHA256, Fehlerrate pro Sprache, Lizenz). |
+## The menu
 
-Eingefügte Aufrufe (je einer pro Stelle):
-
-| Spielmethode | Aufruf |
+| Part | What it shows |
 |---|---|
-| `Whisper.WhisperManager.InitModel` (Anfang) | `Hooks.BeforeInitModel(this)`: Modellpfad, GPU, Flash Attention, Sampling |
-| `WhisperVcPipeline.ConfigureRecognizer` (vor jedem `ret`) | `Hooks.AfterConfigureRecognizer(recognizer, code)`: Start-Prompt (das Spiel leert ihn vor jeder Erkennung) |
-| `WindowsSpeechCompatibility.Initialize` (Anfang) | `Hooks.Init()`: Config laden, später Menü |
-| `SpeechTranscriptPostprocessor.ProcessTranscript` (Anfang) | `text = Hooks.FilterTranscript(text, confidence)` |
+| Status | The model in use, whether it runs on the graphics card, and how long the last sentence in a call took. |
+| Language | Models are rated for the language you pick. Only the game's call languages are listed. |
+| Model list | Sorted by recommendation. **Quality**: five dots and the share of words the model gets wrong (lower is better). **Speed**: five dots and the estimated time per sentence on your PC. Below each name: how likely the model runs on your PC. |
+| Microphone test | Hold "Hold to talk", speak, release. Shows the text, the audio length, the recognition time and whether the mod's filters would change it in a call. |
+| Settings | Ignore made-up phrases, remove sound descriptions like `*music*`, graphics card on or off, English model, debug log. |
 
-Der Patcher speichert in `BetterSpeech\backup\state.txt` pro Datei die Prüfsumme vor und nach dem Patchen sowie die Patch-Version (`PatchVersion` in `GamePatcher.cs`, bei jeder Änderung am eingefügten IL erhöhen). Daran erkennt er „schon gepatcht“, ältere Patch-Versionen (dann wird das gesicherte Original neu gepatcht) und Spiel-Updates (dann wird die neue Version gepatcht). Findet er eine Methode nicht, bricht er ab, bevor er etwas schreibt.
+Ratings are estimates. Quality comes from published benchmarks (see `catalog/models.json` for the sources). Speed and memory needs are estimated from model size and adjusted to your graphics card's memory.
 
-## Entwickeln
+## Models
+
+All models are downloaded from their authors' Hugging Face pages and checked with SHA256. Nothing is bundled with the mod.
+
+| Model | Languages | Source | License |
+|---|---|---|---|
+| Tiny, Small, Medium, Large v3, Large v3 Turbo (several sizes) | all | [ggerganov/whisper.cpp](https://huggingface.co/ggerganov/whisper.cpp) (OpenAI Whisper) | MIT |
+| German Turbo | German | [primeline](https://huggingface.co/primeline/whisper-large-v3-turbo-german), converted by [cstr](https://huggingface.co/cstr/whisper-large-v3-turbo-german-ggml) | Apache-2.0 |
+| Chinese Turbo | Chinese | [BELLE-2](https://huggingface.co/BELLE-2/Belle-whisper-large-v3-turbo-zh-ggml) | Apache-2.0 |
+| French Large v3 | French | [bofenghuang](https://huggingface.co/bofenghuang/whisper-large-v3-french-distil-dec16) | MIT |
+| Swedish Large, Swedish Medium | Swedish | [KBLab](https://huggingface.co/KBLab/kb-whisper-large) (National Library of Sweden) | Apache-2.0 |
+
+A language-specific model is only listed when its authors publish whisper.cpp files themselves, under an open license, with a benchmark against the OpenAI model it is based on.
+
+## Settings file
+
+`BetterSpeech\BetterSpeech.cfg`. Everything important is in the menu; all options appear after the first game start.
+
+- `[Model] ModelFile`: file in `models\`, empty = the game's own model. `ReplaceEnglishModel`: also use it for English calls (the game has a separate English model).
+- `[Inference] UseGpu`, `BeamSearch`, `FlashAttention` (off by default: with the game's Vulkan build it made recognition about 60 times slower in testing).
+- `[Prompt] German / English / Other`: start prompt per language.
+- `[Transcript] DropHallucinations`, `HallucinationMaxConfidence` (default 0.72), `HallucinationPhrases`, `FilterSoundTags`.
+- `[Debug] NativeLog`: write whisper.cpp's own log (backend, GPU) into Player.log.
+
+To check that the mod works, look for lines with `[BetterSpeech]` in
+`%USERPROFILE%\AppData\LocalLow\Jatater Worldwide\Scam With Your Friends\Player.log`.
+
+## How it works
+
+The game is built with Unity's managed code stripping: `mscorlib.dll` and the other libraries are trimmed, and the game's own DLLs were trimmed to match. That rules out the usual tools:
+
+- BepInEx fails on the trimmed `mscorlib` (`Module.GetPEKind` is missing).
+- Full libraries no longer match the trimmed game DLLs (`TypeLoadException` in Mirror, UniTask and Newtonsoft; the game hangs).
+- Harmony needs `MethodBase.GetMethodBody`, which is missing too.
+
+So the mod patches four methods in the game's DLLs once, on disk, with a backup, instead of changing them at runtime. The installer is a PowerShell script (no `.exe`) that uses Mono.Cecil.
+
+| Game method | Injected call |
+|---|---|
+| `Whisper.WhisperManager.InitModel` (start) | `Hooks.BeforeInitModel(this)`: model path, GPU, flash attention, sampling |
+| `WhisperVcPipeline.ConfigureRecognizer` (before every `ret`) | `Hooks.AfterConfigureRecognizer(recognizer, code)`: start prompt (the game clears it before each recognition) |
+| `WindowsSpeechCompatibility.Initialize` (start) | `Hooks.Init()`: load the settings, create the menu |
+| `SpeechTranscriptPostprocessor.ProcessTranscript` (start) | `text = Hooks.FilterTranscript(text, confidence)` |
+
+The patcher stores the checksum of each file before and after patching, plus the patch version, in `BetterSpeech\backup\state.txt`. From that it recognizes files it already patched, files patched by an older version of the mod (it re-patches the backed-up original) and game updates (it patches the new version). If it cannot find a method, it stops before writing anything.
+
+Everything else runs from `BetterSpeech.Runtime.dll`, which is compiled against the game's trimmed libraries (`NoStdLib`), so any API the game lacks is a compile error instead of a crash in game. Model switching frees the old model's native context and loads the new one through the game's own `InitModel`. The microphone test reads along from the game's microphone recording instead of opening the microphone itself, because Unity allows only one recording at a time.
+
+## Building
+
+Requirements: .NET SDK, Windows PowerShell 5.1, and the game installed (the runtime compiles against its DLLs).
 
 ```powershell
-.\build.ps1           # baut dist\BetterSpeech (das Nexus-Paket)
-.\build.ps1 -Deploy   # kopiert es in den Spielordner (Modelle, Config, Backups bleiben)
-.\build.ps1 -Zip      # zusätzlich dist\BetterSpeech-<version>.zip
+$game = "X:\SteamLibrary\steamapps\common\Scam With Your Friends"
+.\build.ps1 -GameDir $game           # builds dist\BetterSpeech
+.\build.ps1 -GameDir $game -Deploy   # also copies it into the game folder (keeps models, settings, backups)
+.\build.ps1 -GameDir $game -Zip      # also creates dist\BetterSpeech-<version>.zip
 ```
 
-Danach `BetterSpeech\install.bat` im Spielordner ausführen. Skripte immer mit Windows PowerShell (`powershell.exe`) starten; die PowerShell 7 aus dem Microsoft Store sieht wegen der App-Isolation manche Ordner unter `AppData\Roaming` nicht.
+Then run `BetterSpeech\install.bat` in the game folder. Run the scripts with Windows PowerShell (`powershell.exe`).
 
-## Für Nutzer
+| Path | Content |
+|---|---|
+| `src/Runtime` | The mod: hooks, menu, model download and switching, microphone test, settings. |
+| `src/Patcher` | The Mono.Cecil patcher used by the install scripts. |
+| `scripts` | `install` / `uninstall` (`.bat` starts the `.ps1`). |
+| `catalog` | `models.json` (models, sizes, hashes, error rates per language) and `gen.py`, which generates it from the benchmark data next to it. |
 
-1. Den Ordner `BetterSpeech` in den Spielordner entpacken (neben `Scam With Your Friends.exe`).
-2. `BetterSpeech\install.bat` ausführen und die Sprache wählen. Das Modell wird geladen und per SHA256 geprüft.
-3. Nach jedem Spiel-Update `install.bat` erneut ausführen.
+## License
 
-Entfernen: `uninstall.bat` stellt die Originaldateien wieder her. `uninstall.ps1 -Purge` löscht zusätzlich Modelle und Config. Notfalls: Steam → Eigenschaften → Installierte Dateien → Dateien auf Fehler überprüfen.
+The mod is released under the [MIT License](LICENSE). Mono.Cecil is MIT. The models keep their own licenses (see the table above).
 
-## Konfiguration
-
-`BetterSpeech\BetterSpeech.cfg` (alle Optionen erscheinen nach dem ersten Spielstart):
-
-- `[Model] ModelFile`: Datei in `models\`, z. B. `ggml-turbo-german-q5.bin`, `ggml-turbo-q5.bin`, `ggml-small-q5.bin`
-- `[Model] ReplaceEnglishModel`: auch für Englisch das neue Modell nutzen
-- `[Inference] UseGpu / BeamSearch`
-- `[Inference] FlashAttention`: Standard **aus**. Gemessen auf einer RTX 4070 Ti SUPER mit turbo-german-q5: ~9 s pro Satz mit, ~0,14 s ohne.
-- `[Prompt] German / English / Other`
-- `[Transcript] FilterSoundTags`: `*…*`, `[…]`, `(…)` entfernen (Standard: aus)
-- `[Transcript] DropHallucinations / HallucinationMaxConfidence / HallucinationPhrases`: verwirft Sätze, die Whisper bei Stille erfindet („Vielen Dank.“, „Untertitel im Auftrag des ZDF“), aber nur unter der Sicherheits-Schwelle (Standard 0,8)
-- `[Debug] NativeLog`: whisper.cpp-eigenes Log (Backend, GPU) ins Player.log schreiben
-
-Prüfen, ob es wirkt: `%USERPROFILE%\AppData\LocalLow\Jatater Worldwide\Scam With Your Friends\Player.log`, Zeilen mit `[BetterSpeech]` und `[SpeechTiming] provider=Whisper ... model=<neuer Pfad>`.
-
-## Lizenzen
-
-Mod: MIT. Mono.Cecil: MIT. Whisper-Modelle von OpenAI: MIT. turbo-german (primeline): Apache-2.0.
+This mod is not affiliated with the developers of Scam With Your Friends.
