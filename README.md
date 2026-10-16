@@ -13,8 +13,8 @@ Scam With Your Friends turns what you say in calls into text with a small Whispe
 
 1. Extract the `BetterSpeech` folder into the game folder, next to `Scam With Your Friends.exe`.
    (Steam: right-click the game → Manage → Browse local files.)
-2. Close the game and run `BetterSpeech\install.bat`. Choose your language; the matching model is downloaded and checked.
-3. Start the game and press **F8** to open the menu.
+2. Close the game and run `BetterSpeech\install.bat`. It patches the game; no model is downloaded yet.
+3. Start the game and press **F8** to open the menu. Pick your language there and download a model.
 
 After a game update, run `install.bat` again. The game's own files are replaced by the update, so the mod is gone until you do.
 
