@@ -18,6 +18,16 @@ Scam With Your Friends turns what you say in calls into text with a small Whispe
 
 After a game update, run `install.bat` again. The game's own files are replaced by the update, so the mod is gone until you do.
 
+### Reinstall automatically after game updates
+
+A game update replaces the patched game files. To have the mods put back before every start, set the game's launch options in Steam (right-click the game → Properties → General → Launch options) to:
+
+```
+powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "D:\Spiele\Steam\steamapps\common\Scam With Your Friends\BetterSpeech\launch.ps1" %command%
+```
+
+Use your own game folder in the path. `launch.ps1` runs `install.ps1` of every mod in the game folder that you installed before (Better Speech Recognition and Gemini Backend alike, so one launch option covers both), then starts the game. When nothing changed this adds a second or two. If a mod cannot be installed, for example because the update changed the code it hooks, a message says so and the game starts without it. The log is in `BetterSpeech\launch.log`.
+
 **Uninstall:** run `BetterSpeech\uninstall.bat` with the game closed. It restores the original game files. `uninstall.ps1 -Purge` also deletes the downloaded models and the settings. If anything goes wrong: Steam → Properties → Installed Files → Verify integrity of game files.
 
 ## The menu

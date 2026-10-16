@@ -139,6 +139,9 @@ public static class GamePatcher
                 File.Delete(pdb);
             }
             state[group.Key] = new PatchState { Original = originalHash, Patched = Sha256(file), Version = PatchVersion };
+            // Saved per file: if a later file fails, this one is still known as patched and is not taken
+            // for an original on the next install.
+            SaveState(backupDir, state);
         }
 
         SaveState(backupDir, state);
