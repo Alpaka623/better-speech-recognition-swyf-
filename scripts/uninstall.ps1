@@ -16,6 +16,8 @@ try {
     }
 
     $lib = Join-Path $PSScriptRoot "lib"
+    # DLLs from a downloaded zip carry the "from the internet" mark, and .NET refuses to load them (0x80131515).
+    Get-ChildItem $lib -Filter *.dll | Unblock-File
     Add-Type -Path (Join-Path $lib "Mono.Cecil.dll")
     Add-Type -Path (Join-Path $lib "BetterSpeech.Patcher.dll")
     [BetterSpeech.Patcher.GamePatcher]::Uninstall($GameDir)
