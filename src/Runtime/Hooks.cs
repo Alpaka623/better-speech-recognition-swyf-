@@ -15,7 +15,7 @@ namespace BetterSpeech;
 /// </summary>
 public static class Hooks
 {
-    public const string Version = "0.6.0";
+    public const string Version = "0.7.0";
 
     private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
     private static readonly FieldInfo ModelPathField = typeof(WhisperManager).GetField("modelPath", Private);
