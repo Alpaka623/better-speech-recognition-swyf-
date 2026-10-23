@@ -11,10 +11,15 @@ Scam With Your Friends turns what you say in calls into text with a small Whispe
 
 ## Install
 
-1. Extract the `BetterSpeech` folder into the game folder, next to `Scam With Your Friends.exe`.
-   (Steam: right-click the game → Manage → Browse local files.)
-2. Close the game and run `BetterSpeech\install.bat`. It patches the game; no model is downloaded yet.
+1. Close the game and run `BetterSpeech-Setup-<version>.exe`. It finds the game in your Steam libraries (or click **Browse...** and pick the folder with `Scam With Your Friends.exe`).
+2. Click **Install**. It puts the mod into `<game folder>\BetterSpeech` and patches the game; no model is downloaded yet.
 3. Start the game and press **F8** to open the menu. Pick your language there and download a model.
+
+After a game update, run the setup again: it shows that the game was updated, and **Install** puts the mod back. The same window has **Uninstall** and a button that copies the Steam launch option described below with your game folder filled in.
+
+### Install from the command line
+
+Extract the `BetterSpeech` folder into the game folder, next to `Scam With Your Friends.exe` (Steam: right-click the game → Manage → Browse local files). Close the game and run `BetterSpeech\install.bat`. It patches the game; no model is downloaded yet.
 
 After a game update, run `install.bat` again. The game's own files are replaced by the update, so the mod is gone until you do.
 
@@ -28,7 +33,7 @@ A game update replaces the patched game files. To have the mods put back before 
 
 Use your own game folder in the path. Steam needs the full path to `powershell.exe`; with just `powershell.exe` it reports that the game's executable is missing. `launch.ps1` runs `install.ps1` of every mod in the game folder that you installed before (Better Speech Recognition and Gemini Backend alike, so one launch option covers both), then starts the game. When nothing changed this adds a second or two. If a mod cannot be installed, for example because the update changed the code it hooks, a message says so and the game starts without it. The log is in `BetterSpeech\launch.log`.
 
-**Uninstall:** run `BetterSpeech\uninstall.bat` with the game closed. It restores the original game files. `uninstall.ps1 -Purge` also deletes the downloaded models and the settings. If anything goes wrong: Steam → Properties → Installed Files → Verify integrity of game files.
+**Uninstall:** click **Uninstall** in the setup, or run `BetterSpeech\uninstall.bat` with the game closed. It restores the original game files. `uninstall.ps1 -Purge` also deletes the downloaded models and the settings. If anything goes wrong: Steam → Properties → Installed Files → Verify integrity of game files.
 
 ## The menu
 
@@ -99,6 +104,7 @@ $game = "X:\SteamLibrary\steamapps\common\Scam With Your Friends"
 .\build.ps1 -GameDir $game           # builds dist\BetterSpeech
 .\build.ps1 -GameDir $game -Deploy   # also copies it into the game folder (keeps models, settings, backups)
 .\build.ps1 -GameDir $game -Zip      # also creates dist\BetterSpeech-<version>.zip
+.\build.ps1 -GameDir $game -Exe      # also creates dist\BetterSpeech-Setup-<version>.exe (the package embedded in one file)
 ```
 
 Then run `BetterSpeech\install.bat` in the game folder. Run the scripts with Windows PowerShell (`powershell.exe`).
@@ -107,6 +113,7 @@ Then run `BetterSpeech\install.bat` in the game folder. Run the scripts with Win
 |---|---|
 | `src/Runtime` | The mod: hooks, menu, model download and switching, microphone test, settings. |
 | `src/Patcher` | The Mono.Cecil patcher used by the install scripts. |
+| `src/Installer` | `BetterSpeech-Setup.exe`: a window that finds the game, extracts the embedded package and runs the patcher. |
 | `scripts` | `install` / `uninstall` (`.bat` starts the `.ps1`). |
 | `catalog` | `models.json` (models, sizes, hashes, error rates per language) and `gen.py`, which generates it from the benchmark data next to it. |
 
