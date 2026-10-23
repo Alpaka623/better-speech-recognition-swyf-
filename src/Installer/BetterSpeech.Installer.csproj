@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    One-file setup: BetterSpeech-Setup.exe. build.ps1 -Exe zips the finished mod package (dist\BetterSpeech)
+    and embeds it as "payload.zip". The setup extracts it into "<game>\BetterSpeech" and calls the same
+    GamePatcher as install.ps1. The patcher and Mono.Cecil are loaded from the payload, so the .exe needs
+    no files next to it. .NET Framework 4.7.2 ships with Windows 10 and 11.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>BetterSpeech-Setup</AssemblyName>
+    <RootNamespace>BetterSpeech.Installer</RootNamespace>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Compiled against, but loaded from the payload at runtime (Payload.ResolveAssembly). -->
+    <ProjectReference Include="..\Patcher\BetterSpeech.Patcher.csproj" Private="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(PayloadZip)' != ''">
+    <EmbeddedResource Include="$(PayloadZip)" LogicalName="payload.zip" />
+  </ItemGroup>
+
+</Project>
