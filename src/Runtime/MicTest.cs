@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MetaVoiceChat.Core;
 using UnityEngine;
 using Whisper;
+using Whisper.Utils;
 
 namespace BetterSpeech;
 
@@ -108,7 +109,15 @@ internal sealed class MicTest
                 Fail("Speech recognition has not started yet. Try again in a moment.");
                 return;
             }
-            if (!manager.IsLoaded && !manager.IsLoading)
+            if (GamePipeline.Active)
+            {
+                if (!GamePipeline.HasModel(manager))
+                {
+                    Fail("The model is still loading. Try again in a moment.");
+                    return;
+                }
+            }
+            else if (!manager.IsLoaded && !manager.IsLoading)
             {
                 _ = manager.InitModel();
             }
@@ -126,7 +135,9 @@ internal sealed class MicTest
             string prompt = Hooks.Config.Enabled ? Hooks.Config.PromptFor(languageCode) : "";
             manager.initialPrompt = string.IsNullOrWhiteSpace(prompt) ? string.Empty : prompt.Trim();
             recognizeStarted = Time.realtimeSinceStartup;
-            task = manager.GetTextAsync(audio, frequency, 1);
+            task = GamePipeline.Active
+                ? GamePipeline.GetTextAsync(manager, frequency == 16000 ? audio : AudioUtils.ChangeSampleRate(audio, frequency, 16000))
+                : manager.GetTextAsync(audio, frequency, 1);
             Status = State.Recognizing;
         }
         catch (Exception ex)
@@ -275,7 +286,7 @@ internal sealed class MicTest
         return count > 0 ? sum / count : 0f;
     }
 
-    private static string CurrentLanguage()
+    internal static string CurrentLanguage()
     {
         try
         {

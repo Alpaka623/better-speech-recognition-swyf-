@@ -20,7 +20,7 @@ public static class GamePatcher
     private const string HooksType = "BetterSpeech.Hooks";
 
     /// <summary>Bump whenever the injected IL changes, so already patched files get re-patched from the backup.</summary>
-    private const int PatchVersion = 2;
+    private const int PatchVersion = 3;
 
     private sealed class PatchState
     {
@@ -37,6 +37,8 @@ public static class GamePatcher
         public int ParameterCount;
         public string Hook;
         public Action<MethodDefinition, MethodReference> Inject;
+        /// <summary>Skipped instead of failing when the game version does not have the method.</summary>
+        public bool Optional;
     }
 
     private static readonly HookPoint[] HookPoints =
@@ -55,6 +57,13 @@ public static class GamePatcher
         {
             Assembly = "ScriptsAssDef.dll", Type = "WindowsSpeechCompatibility", Method = "Initialize", ParameterCount = 0,
             Hook = "Init", Inject = (m, hook) => InsertAtStart(m, null, hook)
+        },
+        new HookPoint
+        {
+            // Game 0.1.95 and later load the model here (static, takes the WhisperManager) and no longer call
+            // WhisperManager.InitModel, which still exists. Same hook: it reads and changes the manager's fields.
+            Assembly = "ScriptsAssDef.dll", Type = "WhisperModel", Method = "LoadAsync", ParameterCount = 1,
+            Hook = "BeforeInitModel", Inject = (m, hook) => InsertAtStart(m, OpCodes.Ldarg_0, hook), Optional = true
         },
         new HookPoint
         {
@@ -120,6 +129,11 @@ public static class GamePatcher
                 foreach (HookPoint point in group)
                 {
                     MethodDefinition target = FindMethod(module, point);
+                    if (target == null)
+                    {
+                        Console.WriteLine($"{group.Key}: {point.Type}.{point.Method} not in this game version, skipped");
+                        continue;
+                    }
                     if (target.Body.Instructions.Any(i => i.Operand is MethodReference r && r.DeclaringType.FullName == HooksType))
                     {
                         throw new InvalidOperationException($"{point.Type}.{point.Method} already contains a hook, but the file is not recorded as patched. Verify the game files in Steam and run install again.");
@@ -242,12 +256,17 @@ public static class GamePatcher
         il.InsertBefore(first, il.Create(OpCodes.Starg, method.Parameters[0]));
     }
 
+    /// <summary>The method to patch; null when an optional hook point does not exist in this game version.</summary>
     private static MethodDefinition FindMethod(ModuleDefinition module, HookPoint point)
     {
-        TypeDefinition type = module.GetType(point.Type)
-            ?? throw new InvalidOperationException($"Type {point.Type} not found in {point.Assembly}. The game changed; this mod version does not support it yet.");
-        return type.Methods.SingleOrDefault(m => m.Name == point.Method && m.Parameters.Count == point.ParameterCount && m.HasBody)
-            ?? throw new InvalidOperationException($"Method {point.Type}.{point.Method} not found in {point.Assembly}. The game changed; this mod version does not support it yet.");
+        TypeDefinition type = module.GetType(point.Type);
+        MethodDefinition method = type?.Methods.SingleOrDefault(m => m.Name == point.Method && m.Parameters.Count == point.ParameterCount && m.HasBody);
+        if (method == null && !point.Optional)
+        {
+            string what = type == null ? $"Type {point.Type}" : $"Method {point.Type}.{point.Method}";
+            throw new InvalidOperationException($"{what} not found in {point.Assembly}. The game changed; this mod version does not support it yet.");
+        }
+        return method;
     }
 
     private static string ManagedDir(string gameDir)
