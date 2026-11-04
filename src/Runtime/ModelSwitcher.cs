@@ -12,8 +12,10 @@ namespace BetterSpeech;
 /// <summary>
 /// Swaps the loaded Whisper model without restarting the game. WhisperManager loads its model once, so the
 /// switch frees the native context of the old model (first, so both never sit in video memory together)
-/// and calls InitModel again, where Hooks.BeforeInitModel applies the new config. Only done outside calls
-/// and while the game is not recognizing anything, because a running inference uses the native context.
+/// and calls InitModel again, where Hooks.BeforeInitModel applies the new config. From game 0.1.95 on the
+/// pipeline owns the models (GamePipeline): its own switch disposes them and reloads through
+/// WhisperModel.LoadAsync, where the same hook applies the config. Only done outside calls and while the
+/// game is not recognizing anything, because a running inference uses the native context.
 /// </summary>
 internal static class ModelSwitcher
 {
@@ -83,6 +85,42 @@ internal static class ModelSwitcher
         bool retried = false;
         try
         {
+            if (GamePipeline.Active)
+            {
+                // The game loads only the model for the current call language after its switch.
+                WhisperManager manager = Hooks.ManagerFor(MicTest.CurrentLanguage());
+                while (Hooks.ManagersNeedingReload().Count > 0)
+                {
+                    float started = Time.realtimeSinceStartup;
+                    if (!GamePipeline.Reload())
+                    {
+                        error = "The game's speech recognition is not running yet.";
+                        break;
+                    }
+                    // Disposing starts next frame; afterwards wait while the game is still loading.
+                    while (Time.realtimeSinceStartup - started < 120f && !GamePipeline.HasModel(manager) &&
+                           (GamePipeline.Switching || GamePipeline.Loading(manager) || Time.realtimeSinceStartup - started < 3f))
+                    {
+                        yield return null;
+                    }
+                    if (GamePipeline.HasModel(manager) && Hooks.ManagersNeedingReload().Count == 0)
+                    {
+                        Hooks.Log($"Switched model in {(Time.realtimeSinceStartup - started) * 1000f:0} ms.");
+                        break;
+                    }
+                    if (retried || fallbackModelFile == null)
+                    {
+                        error = "The model could not be loaded.";
+                        break;
+                    }
+                    Hooks.LogWarning("The new model could not be loaded, going back to the previous one.");
+                    Hooks.Config.Set("Model", "ModelFile", fallbackModelFile);
+                    error = "The model could not be loaded, the previous one is used again.";
+                    retried = true;
+                }
+                yield break;
+            }
+
             List<WhisperManager> managers = Hooks.ManagersNeedingReload();
             for (int i = 0; i < managers.Count; i++)
             {

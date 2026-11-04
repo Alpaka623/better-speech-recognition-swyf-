@@ -89,7 +89,10 @@ public static class Hooks
     private static readonly Dictionary<WhisperManager, string> LoadedPaths = new Dictionary<WhisperManager, string>();
     private static readonly Dictionary<WhisperManager, bool> LoadedGpu = new Dictionary<WhisperManager, bool>();
 
-    /// <summary>Injected at the start of WhisperManager.InitModel, before the weights are loaded.</summary>
+    /// <summary>
+    /// Injected at the start of WhisperManager.InitModel and, from game 0.1.95 on, of WhisperModel.LoadAsync(manager),
+    /// before the weights are loaded. Both read the model path, GPU, flash attention and sampling from the manager's fields.
+    /// </summary>
     public static void BeforeInitModel(WhisperManager manager)
     {
         try
@@ -109,6 +112,18 @@ public static class Hooks
                 GameModels[manager] = game;
                 Log($"Game is loading Whisper model '{game.Path}' (gpu={UseGpuField.GetValue(manager)}, " +
                     $"flashAttn={FlashAttentionField.GetValue(manager)}, strategy={StrategyField.GetValue(manager)}).");
+            }
+            else
+            {
+                // The game sets the path itself when the player picks Base or Small in its settings (0.1.95+).
+                string current = (string)ModelPathField.GetValue(manager);
+                LoadedPaths.TryGetValue(manager, out string lastSet);
+                if (current != game.Path && current != lastSet)
+                {
+                    game.Path = current;
+                    game.InStreamingAssets = (bool)InStreamingAssetsField.GetValue(manager);
+                    Log($"Game switched its Whisper model to '{game.Path}'.");
+                }
             }
             // A reload (model switch from the menu) starts from the game's own setup again.
             ModelPathField.SetValue(manager, game.Path);
@@ -183,7 +198,7 @@ public static class Hooks
         foreach (KeyValuePair<WhisperManager, GameModel> entry in GameModels)
         {
             WhisperManager manager = entry.Key;
-            if (manager == null || !manager.IsLoaded)
+            if (manager == null || !manager.IsLoaded && !GamePipeline.HasModel(manager))
             {
                 continue;
             }

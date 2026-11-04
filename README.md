@@ -82,13 +82,14 @@ So the mod patches four methods in the game's DLLs once, on disk, with a backup,
 | Game method | Injected call |
 |---|---|
 | `Whisper.WhisperManager.InitModel` (start) | `Hooks.BeforeInitModel(this)`: model path, GPU, flash attention, sampling |
+| `WhisperModel.LoadAsync` (start; game 0.1.95 and later) | `Hooks.BeforeInitModel(manager)`: the same, since 0.1.95 loads the model here and no longer calls `InitModel` |
 | `WhisperVcPipeline.ConfigureRecognizer` (before every `ret`) | `Hooks.AfterConfigureRecognizer(recognizer, code)`: start prompt (the game clears it before each recognition) |
 | `WindowsSpeechCompatibility.Initialize` (start) | `Hooks.Init()`: load the settings, create the menu |
 | `SpeechTranscriptPostprocessor.ProcessTranscript` (start) | `text = Hooks.FilterTranscript(text, confidence)` |
 
 The patcher stores the checksum of each file before and after patching, plus the patch version, in `BetterSpeech\backup\state.txt`. From that it recognizes files it already patched, files patched by an older version of the mod (it re-patches the backed-up original) and game updates (it patches the new version). If it cannot find a method, it stops before writing anything.
 
-Everything else runs from `BetterSpeech.Runtime.dll`, which is compiled against the game's trimmed libraries (`NoStdLib`), so any API the game lacks is a compile error instead of a crash in game. Model switching frees the old model's native context and loads the new one through the game's own `InitModel`. The microphone test reads along from the game's microphone recording instead of opening the microphone itself, because Unity allows only one recording at a time.
+Everything else runs from `BetterSpeech.Runtime.dll`, which is compiled against the game's trimmed libraries (`NoStdLib`), so any API the game lacks is a compile error instead of a crash in game. Model switching frees the old model's native context and loads the new one through the game's own `InitModel`; from game 0.1.95 on it runs the game's own model switch (`WhisperVcPipeline.ApplyRecognitionPreference`), which disposes the models and reloads through `WhisperModel.LoadAsync`. The microphone test reads along from the game's microphone recording instead of opening the microphone itself, because Unity allows only one recording at a time.
 
 ## Building
 
